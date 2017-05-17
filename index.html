@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Draw GML</title>
+    <meta http-equiv="Content-Type"
+      content="text/html; charset=UTF-8">
+
+    <script type="text/javascript" src="./js/OpenLayers-2.13.1/OpenLayers.js"></script>
+    <link rel="stylesheet" href="./js/OpenLayers-2.13.1/theme/default/style.css" type="text/css">
+	
+	<link rel="stylesheet" type="text/css" href="./css/cookbook.css"> 
+    
+
+  </head>
+  <body>
+    <!-- Map DOM element -->
+	<div id="mapdiv" style="width: 80%; height: 60%;"></div>
+	
+	<textarea id="wktText"  rows="6" style="width: 100%;">MULTIPOLYGON (((40 40, 20 45, 45 30, 40 40)),((20 35, 45 20, 30 5, 10 10, 10 30, 20 35),(30 20, 20 25, 20 15, 30 20)))</textarea>
+    <button onClick="addFeature()">Add Feature</button>
+    
+    	  
+	<script type="text/javascript">
+    // Create the map using the specified DOM element
+    var map = new OpenLayers.Map("mapdiv");    
+	
+	 // Add a WMS layer
+    var wms = new OpenLayers.Layer.WMS("Basic", "http://vmap0.tiles.osgeo.org/wms/vmap0",
+    {
+        layers: 'basic'
+    });
+    map.addLayer(wms);
+
+    //vector layer
+    //var highlight_style = { fillColor:'#99CCFF', strokeColor:'#3399FF', fillOpacity:0.7 };
+    var borders = new OpenLayers.Layer.Vector("Borders");
+	
+	// Add layer switcher control
+    map.addControl(new OpenLayers.Control.LayerSwitcher());
+    // Set the center of the view
+    map.setCenter(new OpenLayers.LonLat(0,0), 2);
+	
+	// Add layers to the map
+    map.addLayer(borders);
+    
+    
+    
+    function addFeature() {
+		console.log('1');
+        // Read features and add to the vector layer
+        var text = document.getElementById("wktText").value;
+		console.log(text);
+        var wkt = new OpenLayers.Format.WKT();
+        var features = wkt.read(text);
+        borders.addFeatures(features);
+    }
+    
+
+    </script>
+  </body>
+</html>
