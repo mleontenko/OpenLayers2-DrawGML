@@ -15,7 +15,9 @@
   <body>
     <!-- Map DOM element -->
 	<div id="mapdiv" style="width: 80%; height: 60%;"></div>
-	
+	<br /><br />
+	<button onClick="addFeature()">Add Feature</button>
+	<br /><br />
 	<textarea id="wktText"  rows="30" style="width: 100%;"><?xml version="1.0" encoding="utf-8" ?>
 <ogr:FeatureCollection
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -94,7 +96,7 @@
   </gml:featureMember>
 </ogr:FeatureCollection>
 </textarea>
-    <button onClick="addFeature()">Add Feature</button>
+    
     
     	  
 	<script type="text/javascript">
